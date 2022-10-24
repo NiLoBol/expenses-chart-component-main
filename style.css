@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+
+html {
+    font-size: 18px;
+}
+
+:root {
+    --Softred: hsl(10, 79%, 65%);
+    --Cyan: hsl(186, 34%, 60%);
+    --Darkbrown: hsl(25, 47%, 15%);
+    --Mediumbrown: hsl(28, 10%, 53%);
+    --Cream: hsl(27, 66%, 92%);
+    --Verypaleorange: hsl(33, 100%, 98%);
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: var(--Cream);
+}
+#chartjs-tooltip{
+    color: var(--Softred);
+}
+.img-icon{
+    width: 4rem;
+    height: 4rem;
+}
+.card-1 {
+    width: 30rem;
+    height: 7rem;
+    background-color: var(--Softred);
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    color: var(--Verypaleorange);
+}
+.cm{
+    color: var(--Mediumbrown);
+}
+h1{
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.card-2 {
+    width: 30rem;
+    height: 30rem;
+    background-color: var(--Verypaleorange);
+    border-radius: 1rem;
+    padding: 2rem;
+}
+.fw-7{
+    font-weight: 700;
+}
+hr{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.mt-2rem{
+    margin-top: 2rem;
+}
+@media (max-width:500px) {
+    html{
+        font-size: 14px;
+    }
+    .card-1{
+        width:25rem;
+    }
+    .card-2{
+        width:25rem;
+    }
+}
+@media (max-width:325px) {
+    html{
+        font-size: 12px;
+    }
+}

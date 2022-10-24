@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Expenses chart component</title>
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="data.json"></script>
+  <script src="index.js"></script>
+</head>
+<!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+
+</head>
+
+<body>
+  <main>
+    <section>
+      <div class="card-1">
+        <div class="row">
+          <div class="col-9">
+            <p class="mb-1">My balance</p>
+            <p class="fs-3 fw-7 m-0">$921.48</p>
+          </div>
+          <div class="col-2 mb-5">
+            <img class="img-icon" src="images/logo.svg" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="card-2">
+        <div class="spending">
+          <h1>Spending - Last 7 Days</h1>
+          <canvas id="myChart"></canvas>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-6">
+            <p class="cm">Total this month</p>
+            <p class="fw-7 fs-3 ">$478.33</p>
+          </div>
+          <div class="col-6">
+            <p class="fw-7 mt-2rem"></p>
+            <div class="fw-7 text-end">+2.4%</div>
+            <div class="cm text-end">from last month</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <!-- place footer here -->
+  </footer>
+  <!-- Bootstrap JavaScript Libraries -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+
+  <script>
+    const ctx = document.getElementById("myChart")
+    const data = {
+      type: "bar",
+      data: {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        datasets: [{
+          backgroundColor: ["hsl(10, 79%, 65%)", "hsl(10, 79%, 65%)", "hsl(186, 34%, 60%)", "hsl(10, 79%, 65%)", "hsl(10, 79%, 65%)", "hsl(10, 79%, 65%)", "hsl(10, 79%, 65%)"],
+          hoverBackgroundColor: ["hsla(10, 79%, 65%,0.5)", "hsla(10, 79%, 65%,0.5)", "hsla(10, 79%, 65%,0.5)", "hsla(10, 79%, 65%,0.5)", "hsla(10, 79%, 65%,0.5)", "hsla(10, 79%, 65%,0.5)", "hsla(10, 79%, 65%,0.5)"],
+          data: [17.45, 34.91, 52.36, 31.07, 23.39, 43.28, 25.48],
+          borderRadius: 10,
+          borderSkipped: false,
+        }]
+      },
+      options: {
+        
+        interaction: { mode: 'index' },
+        onHover: function (e) {
+          const points = this.getElementsAtEventForMode(
+            e, 'index', { axis: 'x', intersect: true }, false
+          );
+          if (points.length) e.native.target.style.cursor = 'pointer';
+          else e.native.target.style.cursor = 'default';
+        },
+        scales: {
+          y: {
+            grid: {
+              display: false,
+              borderWidth: 0,
+            },
+            ticks: {
+              display: false
+            }
+          },
+          x: {
+            grid: {
+              display: false,
+              borderWidth: 0,
+            }
+          }
+
+        },
+        plugins: {
+          id: 'custom_canvas_background_color',
+          beforeDraw: (chart) => {
+            const { ctx } = chart;
+            ctx.save();
+            ctx.globalCompositeOperation = 'destination-over';
+            ctx.fillStyle = 'lightGreen';
+            ctx.fillRect(0, 0, chart.width, chart.height);
+            ctx.restore();
+          },
+          legend: {
+            display: false
+          },
+          tooltip: {
+            titleFont:{
+              size:0
+            },
+            xAlign:'center',
+            yAlign:'bottom' ,
+            bodyAlign:'center',
+            position: 'nearest',
+            titleAlign: 'center',
+            backgroundColor: 'black',
+            borderWidth: 1,
+            displayColors: false,
+            tooltipTitleFontSize: 0,
+            boxWidth:200,
+          },
+
+        },
+
+      }
+    }
+    const mychart = new Chart(ctx, data);
+    function clickctx(click) {
+      const color = [
+        "hsl(10, 79%, 65%)",
+        "hsl(10, 79%, 65%)",
+        "hsl(10, 79%, 65%)",
+        "hsl(10, 79%, 65%)",
+        "hsl(10, 79%, 65%)",
+        "hsl(10, 79%, 65%)",
+        "hsl(10, 79%, 65%)"
+      ];
+      const bgcolor = [
+        "hsla(10, 79%, 65%,0.5)",
+        "hsla(10, 79%, 65%,0.5)",
+        "hsla(10, 79%, 65%,0.5)",
+        "hsla(10, 79%, 65%,0.5)",
+        "hsla(10, 79%, 65%,0.5)",
+        "hsla(10, 79%, 65%,0.5)",
+        "hsla(10, 79%, 65%,0.5)"];
+      mychart.config.data.datasets[0].backgroundColor = color;
+      mychart.config.data.datasets[0].hoverBackgroundColor = bgcolor;
+      const points = mychart.getElementsAtEventForMode(click, 'nearest', {
+        intersect: true
+      }, true
+      )
+      // points[0].element.options.backgroundColor='black'
+
+      if (points[0]) {
+        mychart.data.datasets[points[0].datasetIndex].backgroundColor[points[0].index] = 'hsl(186, 34%, 60%)'
+        mychart.data.datasets[points[0].datasetIndex].hoverBackgroundColor[points[0].index] = 'hsl(186, 34%, 60%)'
+      }
+      mychart.update();
+    }
+    ctx.onclick = clickctx
+
+  </script>
+
+</body>
+
+</html>
